@@ -5,7 +5,7 @@ package constants;
  * ※インターフェイスに定義した変数は public static final 修飾子がついているとみなされる
  */
 
-public class JpaConst {
+public interface JpaConst {
 
     //persistence-unit名
     String PERSISTENCE_UNIT_NAME = "daily_report_system";
@@ -27,7 +27,7 @@ public class JpaConst {
 
     int ROLE_ADMIN=1;//管理者権限ON(管理者)
     int ROLE_GENERAL=0;//管理者権限OFF(一般)
-    int EMP_DEL_TURE=1;//削除フラグON(削除済み)
+    int EMP_DEL_TRUE=1;//削除フラグON(削除済み)
     int EMP_DEL_FALSE=0;//削除フラグOFF(現役)
 
     //日報テーブル
@@ -52,14 +52,14 @@ public class JpaConst {
 
     //NamedQueryのnameとquery
     //全ての従業員をidの降順に取得する
-    String Q_EMP_GET_ALL=ENTITY_EMP=".getAll";//name
+    String Q_EMP_GET_ALL=ENTITY_EMP+".getAll";//name
     String Q_EMP_GET_ALL_DEF="SELECT e FROM Employee AS e ORDER BY e,id DESC";//query
     //全ての従業員の件数を取得する
     String Q_EMP_COUNT=ENTITY_EMP+".count";
     String Q_EMP_COUNT_DEF="SELECT COUNT(e) FROM Employee AS e";
     //社員番号とハッシュ化済パスワードを条件に未削除の従業員を取得する
     String Q_EMP_GET_BY_CODE_AND_PASS=ENTITY_EMP+".getByCodeAndPass";
-    String Q_EMP_GET_BY_CODE_AND_PASS_DEF="SELECT e FROM Employee As e WHERE e.delateFlag=0 AND e.code=:"+JPQL_PARM_CODE+"AND e.password=:"+JPQL_PARM_PASSWORD;
+    String Q_EMP_GET_BY_CODE_AND_PASS_DEF="SELECT e FROM Employee AS e WHERE e.deleteFlag = 0 AND e.code = :" + JPQL_PARM_CODE + " AND e.password = :" + JPQL_PARM_PASSWORD;
     //指定した社員番号を保持する従業員の件数を取得する
     String Q_EMP_COUNT_REGISTERED_BY_CODE = ENTITY_EMP + ".countRegisteredByCode";
     String Q_EMP_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :" + JPQL_PARM_CODE;
