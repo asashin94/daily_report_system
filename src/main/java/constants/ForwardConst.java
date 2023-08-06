@@ -9,7 +9,7 @@ public enum ForwardConst {
 
     //action
     ACT("action"),
-    ACT_TOP("top"),
+    ACT_TOP("Top"),
     ACT_EMP("Employee"),
     ACT_REP("Report"),
     ACT_AUTH("Auth"),
@@ -24,8 +24,9 @@ public enum ForwardConst {
     CMD_LOGOUT("logout"),
     CMD_NEW("entryNew"),
     CMD_CREATE("create"),
+    CMD_EDIT("edit"),
     CMD_UPDATE("update"),
-    CMD_DESTORY("destory"),
+    CMD_DESTORY("destroy"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -33,7 +34,7 @@ public enum ForwardConst {
     FW_LOGIN("login/login"),
     FW_EMP_INDEX("employees/index"),
     FW_EMP_SHOW("employees/show"),
-    FW_EMP_NEW("empoloyees/new"),
+    FW_EMP_NEW("employees/new"),
     FW_EMP_EDIT("employees/edit"),
     FW_REP_INDEX("reports/index"),
     FW_REP_SHOW("reports/show"),
@@ -46,7 +47,7 @@ public enum ForwardConst {
 
     private final String text;
 
-    /*
+    /**
      * コンストラクタ
      */
 
@@ -54,7 +55,7 @@ public enum ForwardConst {
         this.text=text;
     }
 
-    /*
+    /**
      * 値(文字列)取得
      */
     public String getValue() {
