@@ -25,7 +25,7 @@ import lombok.Setter;
  * 日報データのDTOモデル
  *
  */
-@Table(name=JpaConst.TABLE_EMP)
+@Table(name=JpaConst.TABLE_REP)
 @NamedQueries({
         @NamedQuery(
                 name=JpaConst.Q_REP_GET_ALL,
