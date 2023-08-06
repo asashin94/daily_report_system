@@ -38,8 +38,8 @@ public interface JpaConst {
     String REP_COL_REP_DATE="report_date";//いつの日報か示す日付
     String REP_COL_TITLE="title";//日報のタイトル
     String REP_COL_CONTENT="content";//日報の内容
-    String REP_COL_CREATE_AT="created_at";//登録日時
-    String REP_COL_UPDATE_AT="updated_at";//更新日時
+    String REP_COL_CREATED_AT="created_at";//登録日時
+    String REP_COL_UPDATED_AT="updated_at";//更新日時
 
     //Entity名
     String ENTITY_EMP="employee";//従業員
@@ -53,7 +53,7 @@ public interface JpaConst {
     //NamedQueryのnameとquery
     //全ての従業員をidの降順に取得する
     String Q_EMP_GET_ALL=ENTITY_EMP+".getAll";//name
-    String Q_EMP_GET_ALL_DEF="SELECT e FROM Employee AS e ORDER BY e,id DESC";//query
+    String Q_EMP_GET_ALL_DEF="SELECT e FROM Employee AS e ORDER BY e.id DESC";//query
     //全ての従業員の件数を取得する
     String Q_EMP_COUNT=ENTITY_EMP+".count";
     String Q_EMP_COUNT_DEF="SELECT COUNT(e) FROM Employee AS e";

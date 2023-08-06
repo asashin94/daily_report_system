@@ -3,10 +3,10 @@
 <%@ page import="constants.AttributeConst" %>
 <%@ page import="constants.ForwardConst" %>
 
-<c:set var="actEmp" value="${Forward.ACR_EMP.getValue()}" />
-<c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue() }" />
-<c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue() }" />
-<c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue() }"/>
+<c:set var="actEmp" value="${ForwardConst.ACT_EMP.getValue()}" />
+<c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
+<c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -47,14 +47,14 @@
             <c:forEach var="i" begin="1" end="${((employees_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i==page}">
-                        <c:out value="${i}" />&nbdp;
+                        <c:out value="${i}" />&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='?action=${actEmp}&command=${sommIdx}&page=${i}'/>"><c:out value="${i}"/></a>
+                        <a href="<c:url value='?action=${actEmp}&command=${commIdx}&page=${i}'/>"><c:out value="${i}"/></a>&nbsp;
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actEmp}&command=${commNew}'/>">新規従業員の登録</a></p>
+        <p><a href="<c:url value='?action=${actEmp}&command=${commNew}' />">新規従業員の登録</a></p>
     </c:param>
 </c:import>
