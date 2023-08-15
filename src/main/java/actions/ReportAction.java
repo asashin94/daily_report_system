@@ -2,6 +2,7 @@ package actions;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -105,6 +106,14 @@ public class ReportAction extends ActionBase {
             //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
+            //出勤時間の設定
+            LocalDateTime go=null;
+            go =LocalDateTime.parse(getRequestParam(AttributeConst.REP_GO));
+
+            //退勤時間の設定
+            LocalDateTime leave=null;
+            leave=LocalDateTime.parse(getRequestParam(AttributeConst.REP_LEAVE));
+
             //パラメータの値をもとに日報情報のインスタンスを作成する
             ReportView rv = new ReportView(
                     null,
@@ -113,7 +122,10 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
-                    null);
+                    null,
+                    go,
+                    leave);
+
 
             //日報情報登録
             List<String> errors = service.create(rv);
