@@ -128,7 +128,9 @@ public class ReportAction extends ActionBase {
 
 
             //日報情報登録
-            List<String> errors = service.create(rv);
+
+
+            List<String> errors = service.create(rv,ev);
 
             if (errors.size() > 0) {
                 //登録中にエラーがあった場合
@@ -223,7 +225,7 @@ public class ReportAction extends ActionBase {
             rv.setContent(getRequestParam(AttributeConst.REP_CONTENT));
 
             //日報データを更新する
-            List<String> errors = service.update(rv);
+            List<String> errors = service.update(rv, null);
 
             if (errors.size() > 0) {
                 //更新中にエラーが発生した場合

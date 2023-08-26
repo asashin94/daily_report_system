@@ -29,13 +29,13 @@
 <textarea  name="${AttributeConst.REP_CONTENT.getValue()}" id="${AttributeConst.REP_CONTENT.getValue()}" rows="10" cols="50">${report.content}</textarea>
 <br /><br />
 
-<fmt:parseDate value="${report.goAt}" pattern="yyyy-MM-dd'T'HH:mm;ss" var="goAt" type="date"/>
-<label for="${AttirbuteConst.REP_GO.getValue()}">出勤時間</label>
+<fmt:parseDate value="${report.goAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
+<label for="${AttributeConst.REP_GO.getValue()}">出勤時間</label>
 <input type="datetime-local" name="${AttributeConst.REP_GO.getValue()}" id="${AttributeConst.REP_GO.getValue()}" value="<fmt:formatDate value='${goAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />" />
 <br /><br />
 
-<fmt:parseDate value="${report.leaveAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="leaveAt" type="date"/>
-<label for="${AttirbuteConst.REP_LEAVE.getValue()}">退勤時間</label>
+<fmt:parseDate value="${report.leaveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="leaveAt" type="date"/>
+<label for="${AttributeConst.REP_LEAVE.getValue()}">退勤時間</label>
 <input type="datetime-local" name="${AttributeConst.REP_LEAVE.getValue()}" id="${AttributeConst.REP_LEAVE.getValue()}" value="<fmt:formatDate value='${leaveAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />" />
 <br /><br />
 

@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -84,8 +85,8 @@ public class ReportService extends ServiceBase {
      * @param rv 日報の登録内容
      * @return バリデーションで発生したエラーのリスト
      */
-    public List<String> create(ReportView rv) {
-        List<String> errors = ReportValidator.validate(rv);
+    public List<String> create(ReportView rv,EmployeeView ev) {
+        List<String> errors = ReportValidator.validate(rv,ev);
         if (errors.size() == 0) {
             LocalDateTime ldt = LocalDateTime.now();
             rv.setCreatedAt(ldt);
@@ -102,10 +103,10 @@ public class ReportService extends ServiceBase {
      * @param rv 日報の更新内容
      * @return バリデーションで発生したエラーのリスト
      */
-    public List<String> update(ReportView rv) {
+    public List<String> update(ReportView rv,EmployeeView ev) {
 
         //バリデーションを行う
-        List<String> errors = ReportValidator.validate(rv);
+        List<String> errors = ReportValidator.validate(rv,ev);
 
         if (errors.size() == 0) {
 
@@ -118,6 +119,24 @@ public class ReportService extends ServiceBase {
 
         //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
         return errors;
+    }
+
+    /**
+     *【追記】指定した従業員が作成した最新の日報データの日時を取得し、返却する
+     * @param
+     */
+    public LocalDate newCreatedAt(EmployeeView employee) {
+        List<Report> newDay=em.createNamedQuery(JpaConst.Q_REP_COL_NEW_CREATED_AT,Report.class)
+                            .setParameter("employee", EmployeeConverter.toModel(employee))
+                            .setMaxResults(1)
+                            .getResultList();
+     // 日報が存在しない場合はnullを返す
+        if (newDay.isEmpty()) {
+            return null;
+        }
+
+        // 最新の日報の日時を返す。ここではcreated_atカラムを基に日時を取得している。
+        return newDay.get(0).getCreatedAt().toLocalDate();
     }
 
     /**
