@@ -36,7 +36,7 @@
 
 <fmt:parseDate value="${report.leaveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="leaveAt" type="date"/>
 <label for="${AttributeConst.REP_LEAVE.getValue()}">退勤時間</label>
-<input type="datetime-local" name="${AttributeConst.REP_LEAVE.getValue()}" id="${AttributeConst.REP_LEAVE.getValue()}" value="<fmt:formatDate value='${leaveAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />" />
+<input type="datetime-local" name="${AttributeConst.REP_LEAVE.getValue()}" id="${AttributeConst.REP_LEAVE.getValue()}" value="<fmt:formatDate value='${leaveAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />"  />
 <br /><br />
 
 <input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />

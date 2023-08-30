@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import actions.views.ReportConverter;
@@ -85,8 +87,8 @@ public class ReportService extends ServiceBase {
      * @param rv 日報の登録内容
      * @return バリデーションで発生したエラーのリスト
      */
-    public List<String> create(ReportView rv,EmployeeView ev) {
-        List<String> errors = ReportValidator.validate(rv,ev);
+    public List<String> create(HttpServletRequest request,ReportView rv,EmployeeView ev) {
+        List<String> errors = ReportValidator.validate(request,rv,ev);
         if (errors.size() == 0) {
             LocalDateTime ldt = LocalDateTime.now();
             rv.setCreatedAt(ldt);
@@ -100,13 +102,14 @@ public class ReportService extends ServiceBase {
 
     /**
      * 画面から入力された日報の登録内容を元に、日報データを更新する
+     * @param request
      * @param rv 日報の更新内容
      * @return バリデーションで発生したエラーのリスト
      */
-    public List<String> update(ReportView rv,EmployeeView ev) {
+    public List<String> update(HttpServletRequest request, ReportView rv,EmployeeView ev) {
 
         //バリデーションを行う
-        List<String> errors = ReportValidator.validate(rv,ev);
+        List<String> errors = ReportValidator.validate(request,rv,ev);
 
         if (errors.size() == 0) {
 

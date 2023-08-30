@@ -5,8 +5,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import actions.views.EmployeeView;
 import actions.views.ReportView;
+import constants.ForwardConst;
 import constants.MessageConst;
 import services.ReportService;
 
@@ -21,7 +24,7 @@ public class ReportValidator {
      * @param rv 日報インスタンス
      * @return エラーのリスト
      */
-    public static List<String> validate(ReportView rv,EmployeeView ev) {
+    public static List<String> validate(HttpServletRequest request,ReportView rv,EmployeeView ev) {
         List<String>errors = new ArrayList<String>();
 
         //タイトルのチェック
@@ -49,7 +52,7 @@ public class ReportValidator {
         }
 
         //【追記】日付のチェック
-        String createdAtError = validateCreatedAt(rv.getReportDate(), ev);
+        String createdAtError = validateCreatedAt(request,rv.getReportDate(), ev);
         if (ev != null) {
             if (!createdAtError.equals("")) {
                 errors.add(createdAtError);
@@ -93,14 +96,15 @@ public class ReportValidator {
     }
 
     /**
-     *【追記】 内容値の日付をチェックし、同一の日付であればエラーを表示
-     * @param localDate
-     * @return エラーメッセージ
+     * 【追記】createかをチェックし、createであれば同一日チェックを実施する
      */
-    private static String validateCreatedAt(LocalDate createdAt,EmployeeView employeeView) {
-        ReportService service = new ReportService();
-        if(createdAt.equals(service.newCreatedAt(employeeView))) {
-            return MessageConst.E_SAMEDATE.getMessage();
+    @SuppressWarnings({ "unlikely-arg-type" })
+    private static String validateCreatedAt(HttpServletRequest request,LocalDate createdAt,EmployeeView employeeView) {
+        if(request.getParameter(ForwardConst.ACT.getValue()).equals(ForwardConst.CMD_CREATE)) {
+            ReportService service = new ReportService();
+            if(createdAt.equals(service.newCreatedAt(employeeView))) {
+                return MessageConst.E_SAMEDATE.getMessage();
+            }
         }
         return "";
     }
@@ -109,7 +113,7 @@ public class ReportValidator {
      * 【追記】 出勤時間が退勤時間より遅くないかをチェックし、遅ければエラーメッセージを返却
      */
     private static String validateSlow(LocalDateTime goAt,LocalDateTime leaveAt) {
-        if(goAt.isAfter(leaveAt)) {
+        if(goAt!=null && leaveAt!=null && goAt.isAfter(leaveAt)) {
             return MessageConst.E_SLOW.getMessage();
         }
         return "";
@@ -122,8 +126,8 @@ public class ReportValidator {
      * @return エラーメッセージ
      */
     private static String validateGoAt(LocalDateTime goAt){
-        LocalDateTime defaultDate = LocalDateTime.parse("2000-01-01T00:00");
-        if (goAt == null || goAt.equals(defaultDate)) {
+
+        if (goAt == null) {
          return MessageConst.E_NOGOAT.getMessage();
         }
         return "";
@@ -134,8 +138,7 @@ public class ReportValidator {
      * @return エラーメッセージ
      */
     private static String validateLeaveAt(LocalDateTime leaveAt){
-        LocalDateTime defaultDate = LocalDateTime.parse("2000-01-01T00:00");
-        if (leaveAt==null||leaveAt.equals(defaultDate)){
+        if (leaveAt==null){
             return MessageConst.E_NOLEAVEAT.getMessage();
         }
         return "";

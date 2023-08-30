@@ -110,7 +110,6 @@ public class ReportAction extends ActionBase {
             LocalDateTime go=null;
             if(getRequestParam(AttributeConst.REP_GO)==null
                 ||getRequestParam(AttributeConst.REP_GO).equals("")){
-                go=LocalDateTime.parse("2000-01-01T00:00");
             }else {
                 go =LocalDateTime.parse(getRequestParam(AttributeConst.REP_GO));
             }
@@ -119,7 +118,6 @@ public class ReportAction extends ActionBase {
             LocalDateTime leave=null;
             if(getRequestParam(AttributeConst.REP_LEAVE)==null
                     ||getRequestParam(AttributeConst.REP_LEAVE).equals("")){
-                    leave=LocalDateTime.parse("2000-01-01T00:00");
                 }else {
                     leave =LocalDateTime.parse(getRequestParam(AttributeConst.REP_LEAVE));
                 }
@@ -140,15 +138,13 @@ public class ReportAction extends ActionBase {
             //日報情報登録
 
 
-            List<String> errors = service.create(rv,ev);
+            List<String> errors = service.create(request,rv,ev);
 
             if (errors.size() > 0) {
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
                 putRequestScope(AttributeConst.REPORT, rv);//入力された日報情報
-                putRequestScope(AttributeConst.REP_GO,(null));//空の出勤情報
-                putRequestScope(AttributeConst.REP_LEAVE,(null));//空の退勤情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
@@ -238,7 +234,7 @@ public class ReportAction extends ActionBase {
 
             //日報データを更新する
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-            List<String> errors = service.update(rv, ev);
+            List<String> errors = service.update(request,rv, ev);
 
             if (errors.size() > 0) {
                 //更新中にエラーが発生した場合
