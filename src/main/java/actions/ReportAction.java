@@ -231,6 +231,8 @@ public class ReportAction extends ActionBase {
             rv.setReportDate(toLocalDate(getRequestParam(AttributeConst.REP_DATE)));
             rv.setTitle(getRequestParam(AttributeConst.REP_TITLE));
             rv.setContent(getRequestParam(AttributeConst.REP_CONTENT));
+            rv.setGoAt(getRequestParamLdt(AttributeConst.REP_GO));
+            rv.setLeaveAt(getRequestParamLdt(AttributeConst.REP_LEAVE));
 
             //日報データを更新する
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);

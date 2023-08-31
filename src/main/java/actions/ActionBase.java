@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -192,6 +193,15 @@ public abstract class ActionBase {
      */
     protected String getRequestParam(AttributeConst key) {
         return request.getParameter(key.getValue());
+    }
+
+    /**
+     * 【追記】リクエストパラメータから引数で指定したパラメータの値（LocalDateTime）を返却する
+     * @param key パラメータ名
+     * @return パラメータの値
+     */
+    protected LocalDateTime getRequestParamLdt(AttributeConst key) {
+        return LocalDateTime.parse(request.getParameter(key.getValue()));
     }
 
     /**
