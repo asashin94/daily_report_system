@@ -57,13 +57,7 @@ public class ReportValidator {
             }
         }
 
-//        //【追記】編集時の日付チェック
-//        String updateError = validatespecifiedCreatedAt(request,rv.getReportDate(), ev);
-//        if (ev != null) {
-//            if (!updateError.equals("")) {
-//                errors.add(updateError);
-//            }
-//        }
+
         //【追記】出勤時間が退勤時間より遅くないかチェック
         String slowError=validateSlow(rv.getGoAt(),rv.getLeaveAt());
         if(!slowError.equals("")) {

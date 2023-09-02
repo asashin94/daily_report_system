@@ -138,24 +138,6 @@ public class ReportService extends ServiceBase {
     }
 
     /**
-     *【追記】指定した従業員が作成した指定したの日報データの日時を取得し、返却する
-     * @param
-     */
-//    public LocalDate spcifiedCreatedAt(EmployeeView ev) {
-//        List<Report> day=em.createNamedQuery(JpaConst.Q_REP_COL_SPECIFIED_CREATED_AT,Report.class)
-//                .setParameter("employee", EmployeeConverter.toModel(ev))
-//                .setMaxResults(1)
-//                .getResultList();
-//     // 日報が存在しない場合はnullを返す
-//        if (day.isEmpty()) {
-//            return null;
-//        }
-//
-//        // 指定した日報の日時を返す。ここではcreated_atカラムを基に日時を取得している。
-//        return day.get(0).getCreatedAt().toLocalDate();
-//    }
-
-    /**
      * idを条件にデータを1件取得する
      * @param id
      * @return 取得データのインスタンス
