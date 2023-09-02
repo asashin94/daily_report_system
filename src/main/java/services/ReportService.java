@@ -124,11 +124,24 @@ public class ReportService extends ServiceBase {
     }
 
     /**
-     *【追記】指定した従業員が作成した最新の日報データの日時を取得し、返却する
+     *【追記】指定した従業員が作成した日報データの日時を取得し、返却する
      * @param
      */
-    public long newCreatedAt(EmployeeView ev,ReportView rv) {
-        long newDay=(long)em.createNamedQuery(JpaConst.Q_REP_COL_SPECIFIED_CREATED_AT,Long.class)
+    public List<Report> newCreatedAt(EmployeeView ev,ReportView rv) {
+        List<Report> newDay=em.createNamedQuery(JpaConst.Q_REP_COL_SPECIFIED_CREATED_AT,Report.class)
+                            .setParameter("employee", EmployeeConverter.toModel(ev))
+                            .setParameter("reportDate", rv.getReportDate())
+                            .getResultList();
+     // 日報が存在しない場合はnullを返す
+            return newDay;
+    }
+
+    /**
+     *【追記】指定した従業員が作成した最新の日報データの日時を取得し、その件数を返却する
+     * @param
+     */
+    public long countCreatedAt(EmployeeView ev,ReportView rv) {
+        long newDay=(long)em.createNamedQuery(JpaConst.Q_REP_COL_COUNT_SPECIFIED_CREATED_AT,Long.class)
                             .setParameter("employee", EmployeeConverter.toModel(ev))
                             .setParameter("reportDate", rv.getReportDate())
                             .getSingleResult();

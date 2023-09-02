@@ -81,7 +81,10 @@ public interface JpaConst {
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
     //指定した従業員が作成した指定した日時のものを取得する
     String Q_REP_COL_SPECIFIED_CREATED_AT = ENTITY_REP + ".specifiedCreatedAt";
-    String Q_REP_COL_SPECIFIED_CREATED_AT_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " AND r.reportDate = :" + JPQL_PARM_REPDATE;
+    String Q_REP_COL_SPECIFIED_CREATED_AT_DEF = "SELECT r FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " AND r.reportDate = :" + JPQL_PARM_REPDATE;
+    //指定した従業員が作成した指定した日時のものを取得する
+    String Q_REP_COL_COUNT_SPECIFIED_CREATED_AT = ENTITY_REP + ".specifiedCountCreatedAt";
+    String Q_REP_COL_COUNT_SPECIFIED_CREATED_AT_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " AND r.reportDate = :" + JPQL_PARM_REPDATE;
 
 
 }

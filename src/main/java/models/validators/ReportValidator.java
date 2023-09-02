@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import actions.views.EmployeeView;
 import actions.views.ReportView;
+import constants.ForwardConst;
 import constants.MessageConst;
 import services.ReportService;
 
@@ -50,13 +51,10 @@ public class ReportValidator {
         }
 
         //【追記】日付のチェック
-        String createdAtError = validateCreatedAt(ev,rv);
-        if (ev != null) {
-            if (!createdAtError.equals("")) {
+        String createdAtError = validateCreatedAt(request,ev,rv);
+        if (!createdAtError.equals("")) {
                 errors.add(createdAtError);
-            }
         }
-
 
         //【追記】出勤時間が退勤時間より遅くないかチェック
         String slowError=validateSlow(rv.getGoAt(),rv.getLeaveAt());
@@ -98,11 +96,18 @@ public class ReportValidator {
     /**
      * 【追記】createかをチェックし、createであれば同一日チェックを実施する
      */
-    private static String validateCreatedAt(EmployeeView ev,ReportView rv) {
+    private static String validateCreatedAt(HttpServletRequest request,EmployeeView ev,ReportView rv) {
         ReportService service = new ReportService();
-            if(service.newCreatedAt(ev,rv) != 0) {
+        if(request.getParameter(ForwardConst.CMD.getValue()).equals(ForwardConst.CMD_CREATE.getValue())) {
+            if(service.countCreatedAt(ev,rv)!=0) {
                 return MessageConst.E_SAMEDATE.getMessage();
 
+            }
+        }else {
+            if(service.newCreatedAt(ev,rv) != null && service.countCreatedAt(ev,rv)!=0) {
+
+            return MessageConst.E_SAMEDATE.getMessage();
+            }
         }
         return "";
     }
