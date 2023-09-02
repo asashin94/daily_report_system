@@ -1,6 +1,5 @@
 package models.validators;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import actions.views.EmployeeView;
 import actions.views.ReportView;
-import constants.ForwardConst;
 import constants.MessageConst;
 import services.ReportService;
 
@@ -52,12 +50,20 @@ public class ReportValidator {
         }
 
         //【追記】日付のチェック
-        String createdAtError = validateCreatedAt(request,rv.getReportDate(), ev);
+        String createdAtError = validateCreatedAt(ev,rv);
         if (ev != null) {
             if (!createdAtError.equals("")) {
                 errors.add(createdAtError);
             }
         }
+
+//        //【追記】編集時の日付チェック
+//        String updateError = validatespecifiedCreatedAt(request,rv.getReportDate(), ev);
+//        if (ev != null) {
+//            if (!updateError.equals("")) {
+//                errors.add(updateError);
+//            }
+//        }
         //【追記】出勤時間が退勤時間より遅くないかチェック
         String slowError=validateSlow(rv.getGoAt(),rv.getLeaveAt());
         if(!slowError.equals("")) {
@@ -98,16 +104,27 @@ public class ReportValidator {
     /**
      * 【追記】createかをチェックし、createであれば同一日チェックを実施する
      */
-    @SuppressWarnings({ "unlikely-arg-type" })
-    private static String validateCreatedAt(HttpServletRequest request,LocalDate createdAt,EmployeeView employeeView) {
-        if(request.getParameter(ForwardConst.ACT.getValue()).equals(ForwardConst.CMD_CREATE)) {
-            ReportService service = new ReportService();
-            if(createdAt.equals(service.newCreatedAt(employeeView))) {
+    private static String validateCreatedAt(EmployeeView ev,ReportView rv) {
+        ReportService service = new ReportService();
+            if(service.newCreatedAt(ev,rv) != 0) {
                 return MessageConst.E_SAMEDATE.getMessage();
-            }
+
         }
         return "";
     }
+
+//    /**
+//     * 【追記】updateかをチェックし、updateであれば同一日チェックを実施する
+//     */
+//    private static String validatespecifiedCreatedAt(HttpServletRequest request,LocalDate createdAt,EmployeeView ev) {
+//        if(request.getParameter(ForwardConst.CMD.getValue()).equals(ForwardConst.CMD_UPDATE.getValue())) {
+//            ReportService service = new ReportService();
+//            if(createdAt.equals(service.spcifiedCreatedAt(ev))) {
+//                return MessageConst.E_SAMEDATE.getMessage();
+//            }
+//        }
+//        return "";
+//    }
 
     /**
      * 【追記】 出勤時間が退勤時間より遅くないかをチェックし、遅ければエラーメッセージを返却
