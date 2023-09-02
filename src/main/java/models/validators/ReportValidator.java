@@ -104,7 +104,7 @@ public class ReportValidator {
 
             }
         }else {
-            if(service.newCreatedAt(ev,rv) != null && service.countCreatedAt(ev,rv)!=0) {
+            if(service.newCreatedAt(ev,rv) != null && service.countCreatedAt(ev,rv) > 1) {
 
             return MessageConst.E_SAMEDATE.getMessage();
             }
@@ -112,18 +112,6 @@ public class ReportValidator {
         return "";
     }
 
-//    /**
-//     * 【追記】updateかをチェックし、updateであれば同一日チェックを実施する
-//     */
-//    private static String validatespecifiedCreatedAt(HttpServletRequest request,LocalDate createdAt,EmployeeView ev) {
-//        if(request.getParameter(ForwardConst.CMD.getValue()).equals(ForwardConst.CMD_UPDATE.getValue())) {
-//            ReportService service = new ReportService();
-//            if(createdAt.equals(service.spcifiedCreatedAt(ev))) {
-//                return MessageConst.E_SAMEDATE.getMessage();
-//            }
-//        }
-//        return "";
-//    }
 
     /**
      * 【追記】 出勤時間が退勤時間より遅くないかをチェックし、遅ければエラーメッセージを返却
