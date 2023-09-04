@@ -79,6 +79,7 @@ public class ReportConverter {
         r.setTitle(rv.getTitle());
         r.setContent(rv.getContent());
         r.setCreatedAt(rv.getCreatedAt());
+        r.setUpdatedAt(rv.getUpdatedAt());
         r.setGoAt(rv.getGoAt());
         r.setLeaveAt(rv.getLeaveAt());
     }
