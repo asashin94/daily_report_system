@@ -104,7 +104,7 @@ public class ReportValidator {
 
             }
         }else {
-            if(service.newCreatedAt(ev,rv) != null && service.countCreatedAt(ev,rv) > 1) {
+            if(service.newCreatedAt(ev,rv) != null && service.countCreatedAt(ev,rv) ==1) {
 
             return MessageConst.E_SAMEDATE.getMessage();
             }
