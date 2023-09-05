@@ -1,5 +1,6 @@
 package models.validators;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,9 @@ public class ReportValidator {
 
             }
         }else {
-            if(service.newCreatedAt(ev,rv) != null && service.countCreatedAt(ev,rv) ==1) {
+            LocalDate updateday1=service.findOne(rv.getId()).getUpdatedAt().toLocalDate();
+            LocalDate updateDay2=rv.getUpdatedAt().toLocalDate();
+            if(updateday1 != updateDay2 && service.countCreatedAt(ev,rv) >= 1) {
 
             return MessageConst.E_SAMEDATE.getMessage();
             }
