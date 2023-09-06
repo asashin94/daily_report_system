@@ -105,9 +105,9 @@ public class ReportValidator {
 
             }
         }else {
-            LocalDate updateday1=service.findOne(rv.getId()).getUpdatedAt().toLocalDate();
-            LocalDate updateDay2=rv.getUpdatedAt().toLocalDate();
-            if(updateday1 != updateDay2 && service.countCreatedAt(ev,rv) >= 1) {
+            LocalDate reportDate1=service.findOne(rv.getId()).getReportDate();
+            LocalDate reportDate2=rv.getReportDate();
+            if(!reportDate1.equals(reportDate2) && service.countCreatedAt(ev,rv) >= 1) {
 
             return MessageConst.E_SAMEDATE.getMessage();
             }
